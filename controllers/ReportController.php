@@ -11,7 +11,7 @@ class ReportController extends Controller
     /// 1 
     public function actions()
     {
-       // \Yii::$app->language = 'hi';
+        \Yii::$app->language = 'hi';
         return [
             'error' => [
                 'class' => 'yii\web\ErrorAction',
@@ -23,8 +23,12 @@ class ReportController extends Controller
         ];
     }
 
-    public function actionIndex(){    
-        //echo \Yii::t('app','Welcome'); die; 
+    public function actionIndex(){     
+    
+        echo  \Yii::t('seo','heading',['name'=>'Code Improve']);
+        echo  \Yii::t('seo','page-title',['pagename'=>'Blog','count'=>'12']);
+        die;
+        echo \Yii::t('app','Welcome'); die; 
         echo "Report Controller";
        // return $this->render('report'); 
     }

@@ -10,6 +10,7 @@ use yii\filters\VerbFilter;
 use app\models\LoginForm;
 use app\models\ContactForm;
 use GuzzleHttp\Psr7\Request;
+use app\models\SmsJob;
 
 class SiteController extends Controller
 {
@@ -147,5 +148,14 @@ class SiteController extends Controller
     public function actionAbout()
     {
         return $this->render('about');
+    }
+    public function actionSmsTest()
+    {
+        //// data
+        // sms
+        Yii::$app->queue->push(new SmsJob([
+            'message'=>'Code Improve test message',
+            'phone'=>'9090909090'
+        ]));
     }
 }

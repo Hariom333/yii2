@@ -38,7 +38,14 @@ $config = [
         'prop1'=>'Code',
         'prop2'=>'Improve'
     ],  */
-    'components' => [  
+    'components' => [   
+        'queue' => [
+            'class' => \yii\queue\db\Queue::class,
+            'db' => 'db', // DB connection component or its config 
+            'tableName' => '{{%queue}}', // Table name
+            'channel' => 'default', // Queue channel key
+            'mutex' => \yii\mutex\MysqlMutex::class, // Mutex used to sync queries
+        ],
         'view'=>[
             'theme'=>[
                 'basePath'=>'@webroot/themes/new',
@@ -58,8 +65,20 @@ $config = [
                     'fileMap' => [
                         'app' => 'app.php',
                         'app/error' => 'error.php',
-                    ],
+                    ], 
                 ],
+                'seo*'=>[
+                    'class'=>'yii\i18n\GettextMessageSource',
+                    'catalog'=>'seo',
+                    'useMoFile'=>false,
+                    'basePath' => '@app/messages', 
+                ],
+           /*      'faq*'=>[
+                    'class'=>'yii\i18n\GettextMessageSource',
+                    'catalog'=>'faq',
+                    'useMoFile'=>false,
+                    'basePath' => '@app/messages', 
+                ] */
             ],
         ],
         'request' => [
@@ -96,7 +115,7 @@ $config = [
        // 'dbOld'=> $db['db2'],
     
         'urlManager' => [
-            'enablePrettyUrl' => true,
+            'enablePrettyUrl' => false,
             'showScriptName' => false,
             'rules' => [
                 'about'=>'first/about',
