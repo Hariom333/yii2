@@ -115,7 +115,7 @@ $config = [
        // 'dbOld'=> $db['db2'],
     
         'urlManager' => [
-            'enablePrettyUrl' => false,
+            'enablePrettyUrl' => true,
             'showScriptName' => false,
             'rules' => [
                 'about'=>'first/about',
@@ -139,9 +139,27 @@ $config = [
 
             ],
         ], 
+        'urlManagerMySite'=>[
+            'class'=>\yii\web\UrlManager::className(),
+            'enablePrettyUrl'=>true,
+            'enableStrictParsing'=>true,
+            'showScriptName'=>false,
+            'baseUrl'=>false,
+            'rules'=>[
+                '/item/listing'=>'site/product',
+                '/product/category/<phone>'=>'site/category',
+                '/<phone>-<modelNo>/detail'=>'phone/detail'
+            ]
+
+        ],
         'common'=>[
             'class'=>'app\components\CommonComponent', 
         ]
+    ],
+    'modules' => [
+        'gridview' =>  [
+            'class' => '\kartik\grid\Module'
+        ]       
     ],
     'params' => $params,
 ];
@@ -162,5 +180,5 @@ if (YII_ENV_DEV) {
         //'allowedIPs' => ['127.0.0.1', '::1'],
     ];
 }
-
+ 
 return $config;

@@ -11,6 +11,8 @@ use app\models\LoginForm;
 use app\models\ContactForm;
 use GuzzleHttp\Psr7\Request;
 use app\models\SmsJob;
+use yii\data\ArrayDataProvider;
+use yii\db\Query;
 
 class SiteController extends Controller
 {
@@ -157,5 +159,36 @@ class SiteController extends Controller
             'message'=>'Code Improve test message',
             'phone'=>'9090909090'
         ]));
+    } 
+
+    public function actionProvider()
+    { 
+        $query = new Query;
+       $data = $query->from('subject')->all();
+       $provider = new ArrayDataProvider([
+           'allModels'=>$data,
+           'pagination'=>[
+               'pagesize'=>10,  // limit
+               'page'=>1   // per page limit
+           ]
+       ]); 
+      // echo $provider->getTotalCount(); die;  /// total count
+    //  echo $provider->pagination->getPage(); die;  // current page
+       $record = $provider->getModels();
+       echo "<pre>"; print_r($record); die;
+    } 
+
+    public function actionUrlManager(){
+      // $url = \Yii::$app->urlManagerMySite->createUrl(['site/product']);
+
+      $url = \Yii::$app->urlManagerMySite->createUrl(['site/category','phone'=>'iphone']);
+      $url2 = \Yii::$app->urlManagerMySite->createUrl(['site/category','phone'=>'mi']);
+
+      $url3 = \Yii::$app->urlManagerMySite->createUrl(['phone/detail','phone'=>'iphone','modelNo'=>11]);
+
+
+      $url4 = \Yii::$app->urlManagerMySite->createUrl(['phone/detail','phone'=>'mi','modelNo'=>4]);
+       echo $url.'<br/>'.$url2.'<br/>'.$url3.'<br/>'.$url4;
     }
+ 
 }
